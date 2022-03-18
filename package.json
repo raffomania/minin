@@ -1,0 +1,33 @@
+{
+  "devDependencies": {
+    "@parcel/transformer-elm": "^2.1.1",
+    "elm": "^0.19.1-5",
+    "elm-format": "^0.8.3",
+    "elm-hot": "^1.1.6",
+    "elm-test": "^0.19.1-revision7",
+    "parcel": "^2.1.1"
+  },
+  "name": "minin",
+  "version": "0.1.0",
+  "description": "space mining game",
+  "dependencies": {
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/raffomania/minin.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raffomania/minin/issues"
+  },
+  "homepage": "https://github.com/raffomania/minin#readme",
+  "web": "dist/web/index.html",
+  "targets": {
+    "web": {
+      "source": "index_browser.html",
+      "publicUrl": "."
+    }
+  }  
+}
