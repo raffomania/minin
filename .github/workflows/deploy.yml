@@ -17,8 +17,6 @@ jobs:
                   cache: "npm"
             - name: Install dependencies
               run: npm install
-            - name: Test
-              run: npx elm-test
             - name: Build
               run: npx parcel build --target web
             - name: Deploy to pages
