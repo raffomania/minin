@@ -1,15 +1,9 @@
 module Main exposing (init, main)
 
 import Browser
-import Html
-
-
-type Msg
-    = None
-
-
-type alias Model =
-    {}
+import Model exposing (Model)
+import Update exposing (Msg, update)
+import View exposing (view)
 
 
 main : Program () Model Msg
@@ -20,14 +14,6 @@ main =
         , update = update
         , subscriptions = subscriptions
         }
-
-
-view _ =
-    Html.div [] [ Html.text "hello" ]
-
-
-update _ model =
-    ( model, Cmd.none )
 
 
 init : () -> ( Model, Cmd Msg )
