@@ -1,10 +1,7 @@
 module Update exposing (..)
 
 import Model exposing (Model)
-
-
-type Msg
-    = None
+import Msg exposing (Msg)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

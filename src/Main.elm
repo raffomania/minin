@@ -1,8 +1,11 @@
 module Main exposing (init, main)
 
 import Browser
+import Inventory
 import Model exposing (Model)
-import Update exposing (Msg, update)
+import Msg exposing (Msg)
+import Resource
+import Update exposing (update)
 import View exposing (view)
 
 
@@ -18,7 +21,7 @@ main =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( {}
+    ( { inventory = Inventory.empty |> Inventory.update Resource.Iron 3 |> Inventory.update Resource.Water 4 }
     , Cmd.batch
         []
     )
