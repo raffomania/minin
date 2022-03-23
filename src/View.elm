@@ -18,7 +18,7 @@ body : Model -> Html Msg
 body model =
     div
         [ css
-            [ backgroundImage (url "/stardust.png")
+            [ backgroundImage (url "stardust.png")
             , minHeight (vh 100)
             , color (rgb 255 255 255)
             , fontFamily sansSerif
