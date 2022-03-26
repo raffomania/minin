@@ -1,5 +1,8 @@
 module Msg exposing (..)
 
+import Resource exposing (Resource)
+
 
 type Msg
-    = None
+    = Drill
+    | UpdateResource Resource Int

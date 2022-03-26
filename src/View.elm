@@ -4,6 +4,7 @@ import Css exposing (..)
 import Html
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css)
+import Html.Styled.Events exposing (onClick)
 import Inventory
 import Model exposing (Model)
 import Msg exposing (Msg)
@@ -31,5 +32,5 @@ body model =
                 [ maxWidth (px 900)
                 ]
             ]
-            [ text "hi", Inventory.view model.inventory ]
+            [ text "hi", Inventory.view model.inventory, button [ onClick Msg.Drill ] [ text "drill" ] ]
         ]

@@ -1,4 +1,6 @@
-module Resource exposing (Resource(..), toString)
+module Resource exposing (Resource(..), random, toString)
+
+import Random
 
 
 type Resource
@@ -14,3 +16,20 @@ toString res =
 
         Water ->
             "Water"
+
+
+random : Random.Generator Resource
+random =
+    Random.int 0 1
+        |> Random.map
+            (\n ->
+                case n of
+                    0 ->
+                        Iron
+
+                    1 ->
+                        Water
+
+                    _ ->
+                        Iron
+            )
