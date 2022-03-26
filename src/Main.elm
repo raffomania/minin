@@ -4,7 +4,6 @@ import Browser
 import Inventory
 import Model exposing (Model)
 import Msg exposing (Msg)
-import Resource
 import Update exposing (update)
 import View exposing (view)
 
@@ -21,7 +20,7 @@ main =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { inventory = Inventory.empty |> Inventory.update Resource.Iron 3 |> Inventory.update Resource.Water 4 }
+    ( { inventory = Inventory.empty, fuel = 10 }
     , Cmd.batch
         []
     )

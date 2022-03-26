@@ -4,4 +4,4 @@ import Inventory exposing (Inventory)
 
 
 type alias Model =
-    { inventory : Inventory }
+    { inventory : Inventory, fuel : Int }

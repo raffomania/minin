@@ -6,6 +6,7 @@ import Random
 type Resource
     = Iron
     | Water
+    | Rock
 
 
 toString : Resource -> String
@@ -17,10 +18,13 @@ toString res =
         Water ->
             "Water"
 
+        Rock ->
+            "Rock"
+
 
 random : Random.Generator Resource
 random =
-    Random.int 0 1
+    Random.int 0 2
         |> Random.map
             (\n ->
                 case n of
@@ -29,6 +33,9 @@ random =
 
                     1 ->
                         Water
+
+                    2 ->
+                        Rock
 
                     _ ->
                         Iron

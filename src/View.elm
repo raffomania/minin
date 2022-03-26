@@ -32,5 +32,9 @@ body model =
                 [ maxWidth (px 900)
                 ]
             ]
-            [ text "hi", Inventory.view model.inventory, button [ onClick Msg.Drill ] [ text "drill" ] ]
+            [ p [] [ text "hi" ]
+            , p [] [ text <| "you have " ++ String.fromInt model.fuel ++ " fuel" ]
+            , Inventory.view model.inventory
+            , button [ onClick Msg.Drill ] [ text "drill" ]
+            ]
         ]
