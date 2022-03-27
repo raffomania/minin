@@ -29,14 +29,15 @@ update resource count inv =
                 |> Inventory
 
 
-view : Inventory -> Html Msg
+view : Inventory -> List (Html Msg)
 view inv =
     case inv of
         Inventory dict ->
-            div []
+            [ div []
                 [ text "Your inventory:"
                 , ul [] (Dict.toList dict |> List.map (viewResource >> List.singleton >> li []))
                 ]
+            ]
 
 
 viewResource : ( String, Int ) -> Html Msg

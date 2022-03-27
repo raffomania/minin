@@ -1,18 +1,19 @@
 module View exposing (..)
 
 import Css exposing (..)
-import Html
-import Html.Styled exposing (..)
+import Html as UnstyledHtml
+import Html.Styled as Html exposing (Html, button, div, p, text)
 import Html.Styled.Attributes exposing (css)
-import Html.Styled.Events exposing (onClick)
+import Html.Styled.Events as Events
 import Inventory
+import Location
 import Model exposing (Model)
 import Msg exposing (Msg)
 
 
-view : Model -> Html.Html Msg
+view : Model -> UnstyledHtml.Html Msg
 view =
-    body >> toUnstyled
+    body >> Html.toUnstyled
 
 
 body : Model -> Html Msg
@@ -33,8 +34,17 @@ body model =
                 ]
             ]
             [ p [] [ text "hi" ]
-            , p [] [ text <| "you have " ++ String.fromInt model.fuel ++ " fuel" ]
-            , Inventory.view model.inventory
-            , button [ onClick Msg.Drill ] [ text "drill" ]
+            , p [] (Inventory.view model.inventory)
+            , p []
+                (case model.location of
+                    Location.Mission status ->
+                        Location.view status
+
+                    Location.Base ->
+                        [ button [ Events.onClick Msg.StartMission ]
+                            [ text "Start mission "
+                            ]
+                        ]
+                )
             ]
         ]

@@ -1,25 +1,32 @@
 module Update exposing (..)
 
 import Inventory
+import Location
 import Model exposing (Model)
 import Msg exposing (..)
-import Random
-import Resource
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Drill ->
-            if model.fuel > 0 then
-                let
-                    cmd =
-                        Random.generate (\res -> UpdateResource res 1) Resource.random
-                in
-                ( { model | fuel = model.fuel - 1 }, cmd )
+            case model.location of
+                Location.Mission status ->
+                    let
+                        ( newStatus, cmd ) =
+                            Location.drill status
 
-            else
-                ( model, Cmd.none )
+                        newLocation =
+                            if newStatus.fuel > 0 then
+                                Location.Mission newStatus
+
+                            else
+                                Location.Base
+                    in
+                    ( { model | location = newLocation }, cmd )
+
+                Location.Base ->
+                    ( model, Cmd.none )
 
         UpdateResource res count ->
             let
@@ -28,3 +35,6 @@ update msg model =
                         |> Inventory.update res count
             in
             ( { model | inventory = updatedInventory }, Cmd.none )
+
+        StartMission ->
+            ( { model | location = Location.Mission { fuel = 3 } }, Cmd.none )

@@ -2,6 +2,7 @@ module Main exposing (init, main)
 
 import Browser
 import Inventory
+import Location
 import Model exposing (Model)
 import Msg exposing (Msg)
 import Update exposing (update)
@@ -20,13 +21,11 @@ main =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { inventory = Inventory.empty, fuel = 10 }
-    , Cmd.batch
-        []
+    ( { inventory = Inventory.empty, location = Location.Base }
+    , Cmd.none
     )
 
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Sub.batch
-        []
+    Sub.none
