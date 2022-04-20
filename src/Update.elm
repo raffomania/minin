@@ -33,8 +33,11 @@ update msg model =
                 updatedInventory =
                     model.inventory
                         |> Inventory.update res count
+
+                updatedModel =
+                    { model | inventory = updatedInventory }
             in
-            ( { model | inventory = updatedInventory }, Cmd.none )
+            ( updatedModel, Model.store updatedModel )
 
         StartMission ->
             ( { model | location = Location.Mission { fuel = 3 } }, Cmd.none )

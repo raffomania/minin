@@ -1,7 +1,9 @@
-module Inventory exposing (Inventory, empty, update, view)
+module Inventory exposing (Inventory, decode, empty, encode, update, view)
 
 import Dict exposing (Dict)
 import Html.Styled exposing (Html, div, li, text, ul)
+import Json.Decode
+import Json.Encode
 import Msg exposing (Msg)
 import Resource
 
@@ -45,3 +47,16 @@ viewResource ( res, count ) =
     [ String.fromInt count, res ]
         |> String.join " "
         |> text
+
+
+encode : Inventory -> Json.Encode.Value
+encode inv =
+    case inv of
+        Inventory dict ->
+            Json.Encode.dict identity Json.Encode.int dict
+
+
+decode : Json.Decode.Decoder Inventory
+decode =
+    Json.Decode.dict Json.Decode.int
+        |> Json.Decode.map Inventory
