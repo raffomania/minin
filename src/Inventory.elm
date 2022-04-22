@@ -1,7 +1,9 @@
 module Inventory exposing (Inventory, decode, empty, encode, update, view)
 
+import Css exposing (backgroundColor, border, border3, borderColor, borderRadius, height, margin, padding, pct, property, px, rgb, rgba, solid)
 import Dict exposing (Dict)
-import Html.Styled exposing (Html, div, li, text, ul)
+import Html.Styled exposing (Html, div, img, li, text, ul)
+import Html.Styled.Attributes exposing (css, src)
 import Json.Decode
 import Json.Encode
 import Msg exposing (Msg)
@@ -37,16 +39,36 @@ view inv =
         Inventory dict ->
             [ div []
                 [ text "Your inventory:"
-                , ul [] (Dict.toList dict |> List.map (viewResource >> List.singleton >> li []))
+                , ul [] (Dict.toList dict |> List.map (viewResource >> li []))
                 ]
             ]
 
 
-viewResource : ( String, Int ) -> Html Msg
+viewResource : ( String, Int ) -> List (Html Msg)
 viewResource ( res, count ) =
-    [ String.fromInt count, res ]
-        |> String.join " "
-        |> text
+    let
+        description =
+            [ String.fromInt count, res ]
+                |> String.join " "
+                |> text
+
+        imageSource =
+            "resources/" ++ res ++ ".png"
+    in
+    [ img
+        [ src imageSource
+        , css
+            [ margin (px 10)
+            , padding (px 10)
+            , height (px 60)
+            , borderRadius (pct 20)
+            , border3 (px 0) solid (rgb 255 255 255)
+            , backgroundColor (rgba 0 0 10 0.4)
+            ]
+        ]
+        []
+    , description
+    ]
 
 
 encode : Inventory -> Json.Encode.Value
