@@ -1,6 +1,6 @@
 module Inventory exposing (Inventory, decode, empty, encode, update, view)
 
-import Css exposing (absolute, backgroundColor, border, border3, borderColor, borderRadius, borderRadius4, bottom, height, hidden, int, left, lineHeight, margin, maxWidth, overflow, padding, padding4, pct, position, property, px, relative, rgb, rgba, right, solid, width)
+import Css exposing (absolute, backgroundColor, borderRadius, borderRadius4, bottom, height, hidden, int, lineHeight, maxWidth, overflow, padding4, pct, position, px, relative, rgba, right, width)
 import Dict exposing (Dict)
 import Html.Styled exposing (Html, div, img, li, span, text, ul)
 import Html.Styled.Attributes exposing (css, src)
