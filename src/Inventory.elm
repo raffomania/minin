@@ -1,13 +1,14 @@
 module Inventory exposing (Inventory, decode, empty, encode, update, view)
 
-import Css exposing (backgroundColor, border, border3, borderColor, borderRadius, height, margin, padding, pct, property, px, rgb, rgba, solid)
+import Css exposing (absolute, backgroundColor, border, border3, borderColor, borderRadius, borderRadius4, bottom, height, hidden, int, left, lineHeight, margin, maxWidth, overflow, padding, padding4, pct, position, property, px, relative, rgb, rgba, right, solid, width)
 import Dict exposing (Dict)
-import Html.Styled exposing (Html, div, img, li, text, ul)
+import Html.Styled exposing (Html, div, img, li, span, text, ul)
 import Html.Styled.Attributes exposing (css, src)
 import Json.Decode
 import Json.Encode
 import Msg exposing (Msg)
 import Resource
+import String
 
 
 type Inventory
@@ -48,25 +49,36 @@ viewResource : ( String, Int ) -> List (Html Msg)
 viewResource ( res, count ) =
     let
         description =
-            [ String.fromInt count, res ]
-                |> String.join " "
+            res
                 |> text
 
         imageSource =
             "resources/" ++ res ++ ".png"
     in
-    [ img
-        [ src imageSource
-        , css
-            [ margin (px 10)
-            , padding (px 10)
-            , height (px 60)
-            , borderRadius (pct 20)
-            , border3 (px 0) solid (rgb 255 255 255)
+    [ div
+        [ css
+            [ position relative
             , backgroundColor (rgba 0 0 10 0.4)
+            , borderRadius4 (pct 15) (pct 20) (pct 0) (pct 20)
+            , overflow hidden
+            , padding4 (px 9) (px 13) (px 13) (px 9)
+            , height (px 60)
+            , width (px 60)
             ]
         ]
-        []
+        [ img
+            [ src imageSource
+            , css
+                [ maxWidth (pct 100)
+                , borderRadius (pct 50)
+                ]
+            ]
+            []
+        , span
+            [ css [ position absolute, right (px 5), bottom (px 5), lineHeight (int 1) ]
+            ]
+            [ text (String.fromInt count) ]
+        ]
     , description
     ]
 
