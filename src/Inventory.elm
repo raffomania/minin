@@ -1,8 +1,8 @@
 module Inventory exposing (Inventory, decode, empty, encode, update, view)
 
-import Css exposing (absolute, backgroundColor, borderRadius, borderRadius4, bottom, height, hidden, int, lineHeight, maxWidth, overflow, padding4, pct, position, px, relative, rgba, right, width)
+import Css exposing (absolute, backgroundColor, borderRadius, borderRadius4, bottom, displayFlex, flexWrap, height, hidden, hover, int, lineHeight, marginRight, maxWidth, overflow, padding4, pct, position, px, relative, rgba, right, width, wrap)
 import Dict exposing (Dict)
-import Html.Styled exposing (Html, div, img, li, span, text, ul)
+import Html.Styled exposing (Html, div, img, span, text)
 import Html.Styled.Attributes exposing (css, src)
 import Json.Decode
 import Json.Encode
@@ -40,7 +40,10 @@ view inv =
         Inventory dict ->
             [ div []
                 [ text "Your inventory:"
-                , ul [] (Dict.toList dict |> List.map (viewResource >> li []))
+                , div
+                    [ css [ displayFlex, flexWrap wrap ]
+                    ]
+                    (Dict.toList dict |> List.map (viewResource >> div []))
                 ]
             ]
 
@@ -64,6 +67,8 @@ viewResource ( res, count ) =
             , padding4 (px 9) (px 13) (px 13) (px 9)
             , height (px 60)
             , width (px 60)
+            , marginRight (px 10)
+            , hover [ backgroundColor (rgba 10 10 30 0.4) ]
             ]
         ]
         [ img
