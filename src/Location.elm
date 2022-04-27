@@ -30,10 +30,6 @@ drill status =
         ( status, Cmd.none )
 
 
-
-{- TODO move inventory to base status ? -}
-
-
 view : MissionStatus -> List (Html.Html Msg.Msg)
 view status =
     [ Html.p []
