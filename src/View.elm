@@ -1,5 +1,6 @@
 module View exposing (..)
 
+import Background
 import Css exposing (..)
 import Html as UnstyledHtml
 import Html.Styled as Html exposing (Html, button, div, p, text)
@@ -20,17 +21,21 @@ body : Model -> Html Msg
 body model =
     div
         [ css
-            [ backgroundImage (url "stardust.png")
-            , minHeight (vh 100)
-            , color (rgb 255 255 255)
+            [ color
+                (rgb 255 255 255)
             , fontFamily sansSerif
             , displayFlex
             , justifyContent center
             ]
         ]
-        [ div
+        [ Background.view
+        , div
             [ css
                 [ maxWidth (px 900)
+                , padding (px 10)
+                , displayFlex
+                , flexDirection column
+                , zIndex (int 1)
                 ]
             ]
             [ p [] [ text "hi" ]
