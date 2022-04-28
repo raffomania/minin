@@ -8,6 +8,7 @@ import Html.Styled.Attributes exposing (css)
 import Html.Styled.Events as Events
 import Inventory
 import Location
+import Mission
 import Model exposing (Model)
 import Msg exposing (Msg)
 
@@ -42,7 +43,7 @@ body model =
             , p []
                 (case model.location of
                     Location.Mission status ->
-                        Location.viewMission status
+                        Mission.viewMission status
 
                     Location.Base ->
                         [ p [] (Inventory.view model.inventory)

@@ -2,6 +2,7 @@ module Location exposing (..)
 
 import Html.Styled as Html
 import Html.Styled.Events as Events
+import Mission exposing (MissionStatus)
 import Msg
 import Random
 import Resource
@@ -10,11 +11,6 @@ import Resource
 type Location
     = Base
     | Mission MissionStatus
-
-
-type alias MissionStatus =
-    { fuel : Int
-    }
 
 
 drill : MissionStatus -> ( MissionStatus, Cmd Msg.Msg )
@@ -28,16 +24,3 @@ drill status =
 
     else
         ( status, Cmd.none )
-
-
-viewMission : MissionStatus -> List (Html.Html Msg.Msg)
-viewMission status =
-    [ Html.p []
-        [ Html.text <|
-            "you have "
-                ++ String.fromInt status.fuel
-                ++ " fuel"
-        ]
-    , Html.button [ Events.onClick Msg.Drill ]
-        [ Html.text "Drill" ]
-    ]
