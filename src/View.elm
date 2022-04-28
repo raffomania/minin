@@ -39,14 +39,14 @@ body model =
                 ]
             ]
             [ p [] [ text "hi" ]
-            , p [] (Inventory.view model.inventory)
             , p []
                 (case model.location of
                     Location.Mission status ->
-                        Location.view status
+                        Location.viewMission status
 
                     Location.Base ->
-                        [ button [ Events.onClick Msg.StartMission ]
+                        [ p [] (Inventory.view model.inventory)
+                        , button [ Events.onClick Msg.StartMission ]
                             [ text "Start mission "
                             ]
                         ]

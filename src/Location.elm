@@ -30,8 +30,8 @@ drill status =
         ( status, Cmd.none )
 
 
-view : MissionStatus -> List (Html.Html Msg.Msg)
-view status =
+viewMission : MissionStatus -> List (Html.Html Msg.Msg)
+viewMission status =
     [ Html.p []
         [ Html.text <|
             "you have "
