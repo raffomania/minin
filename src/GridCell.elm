@@ -1,6 +1,6 @@
 module GridCell exposing (..)
 
-import Css exposing (absolute, backgroundColor, backgroundImage, borderRadius, borderRadius4, bottom, center, displayFlex, height, hidden, hover, int, justifyContent, left, lineHeight, linearGradient, linearGradient2, marginRight, maxWidth, opacity, overflow, padding4, paddingTop, pct, position, px, relative, rgb, rgba, right, stop, stop2, toBottom, top, visibility, visible, width)
+import Css exposing (absolute, backgroundColor, backgroundImage, borderRadius, borderRadius4, bottom, center, displayFlex, height, hidden, hover, int, justifyContent, left, lineHeight, linearGradient, marginRight, maxWidth, opacity, overflow, padding4, paddingTop, pct, position, px, relative, rgba, right, stop, stop2, top, width)
 import Html.Styled exposing (Html, div, img, span, text)
 import Html.Styled.Attributes exposing (css, src)
 import Msg exposing (Msg)

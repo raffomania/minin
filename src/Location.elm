@@ -1,7 +1,5 @@
 module Location exposing (..)
 
-import Html.Styled as Html
-import Html.Styled.Events as Events
 import Mission exposing (MissionStatus)
 import Msg
 import Random

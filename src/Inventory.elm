@@ -34,18 +34,17 @@ update resource count inv =
                 |> (\newDict -> Inventory { dict = newDict })
 
 
-view : Inventory -> List (Html Msg)
+view : Inventory -> Html Msg
 view inv =
     case inv of
         Inventory { dict } ->
-            [ div []
+            div []
                 [ text "Your inventory:"
                 , div
                     [ css [ displayFlex, flexWrap wrap, justifyContent center ]
                     ]
                     (Dict.toList dict |> List.map (\( res, count ) -> GridCell.view (Just res) (Just count) (Just ("/resources/" ++ res ++ ".png"))))
                 ]
-            ]
 
 
 encode : Inventory -> Json.Encode.Value

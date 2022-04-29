@@ -46,7 +46,7 @@ body model =
                         Mission.viewMission status
 
                     Location.Base ->
-                        [ p [] (Inventory.view model.inventory)
+                        [ p [] [ Inventory.view model.inventory ]
                         , button [ Events.onClick Msg.StartMission ]
                             [ text "Start mission "
                             ]
