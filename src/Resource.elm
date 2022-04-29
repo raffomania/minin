@@ -76,15 +76,14 @@ weight res depth =
                     0.1
 
                 Fuel ->
-                    0.2
+                    0.4
 
                 Algae ->
-                    0.1
+                    0.6
     in
     -- more depth = more weight to lower base weights and less weight to higher base weights
     fDepth
-        + base
-        + (2 * fDepth * base)
+        - ((-1 + (2 * fDepth)) * (base ^ 2))
         |> max 0
 
 
