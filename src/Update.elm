@@ -2,6 +2,7 @@ module Update exposing (..)
 
 import Inventory
 import Location
+import Mission
 import Model exposing (Model)
 import Msg exposing (..)
 
@@ -14,7 +15,7 @@ update msg model =
                 Location.Mission status ->
                     let
                         ( newStatus, cmd ) =
-                            Location.drill status
+                            Mission.drill status
 
                         newLocation =
                             if newStatus.fuel > 0 then
