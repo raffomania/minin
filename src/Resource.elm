@@ -11,10 +11,7 @@ type Resource
     | Gems
     | Nanobots
     | Fuel
-    | Coffee
-    | Seeds
-    | Biomass
-    | Soil
+    | Algae
 
 
 allResourceTypes : Array.Array Resource
@@ -26,10 +23,7 @@ allResourceTypes =
         , Gems
         , Nanobots
         , Fuel
-        , Coffee
-        , Seeds
-        , Biomass
-        , Soil
+        , Algae
         ]
 
 
@@ -54,17 +48,8 @@ toString res =
         Fuel ->
             "Fuel"
 
-        Coffee ->
-            "Coffee"
-
-        Seeds ->
-            "Seeds"
-
-        Biomass ->
-            "Biomass"
-
-        Soil ->
-            "Soil"
+        Algae ->
+            "Algae"
 
 
 random : Random.Generator Resource

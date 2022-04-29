@@ -53,4 +53,4 @@ update msg model =
                     ( model, Cmd.none )
 
         StartMission ->
-            ( { model | location = Location.Mission { fuel = 3, loot = Inventory.empty } }, Cmd.none )
+            ( { model | location = Location.Mission { fuel = 6, loot = Inventory.empty } }, Cmd.none )
