@@ -1,8 +1,8 @@
 module Mission exposing (..)
 
-import GridCell
-import Html.Styled as Html
+import Html.Styled as Html exposing (text)
 import Html.Styled.Events as Events
+import Inventory exposing (Inventory)
 import Msg
 import Random
 import Resource
@@ -10,6 +10,7 @@ import Resource
 
 type alias MissionStatus =
     { fuel : Int
+    , loot : Inventory
     }
 
 
@@ -28,7 +29,9 @@ drill status =
 
 viewMission : MissionStatus -> List (Html.Html Msg.Msg)
 viewMission status =
-    [ Html.p []
+    [ text "Resources mined on this mission:"
+    , Inventory.view status.loot
+    , Html.p []
         [ Html.text <|
             "you have "
                 ++ String.fromInt status.fuel
@@ -36,5 +39,4 @@ viewMission status =
         ]
     , Html.button [ Events.onClick Msg.Drill ]
         [ Html.text "Drill" ]
-    , GridCell.view Nothing Nothing Nothing
     ]

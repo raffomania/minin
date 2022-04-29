@@ -23,22 +23,34 @@ update msg model =
 
                             else
                                 Location.Base
+
+                        updatedInventory =
+                            if newLocation == Location.Base then
+                                model.inventory |> Inventory.merge status.loot
+
+                            else
+                                model.inventory
                     in
-                    ( { model | location = newLocation }, cmd )
+                    ( { model | location = newLocation, inventory = updatedInventory }, cmd )
 
                 Location.Base ->
                     ( model, Cmd.none )
 
         UpdateResource res count ->
-            let
-                updatedInventory =
-                    model.inventory
-                        |> Inventory.update res count
+            case model.location of
+                Location.Mission status ->
+                    let
+                        updatedInventory =
+                            status.loot
+                                |> Inventory.update res count
 
-                updatedModel =
-                    { model | inventory = updatedInventory }
-            in
-            ( updatedModel, Model.store updatedModel )
+                        updatedModel =
+                            { model | location = Location.Mission { status | loot = updatedInventory } }
+                    in
+                    ( updatedModel, Model.store updatedModel )
+
+                Location.Base ->
+                    ( model, Cmd.none )
 
         StartMission ->
-            ( { model | location = Location.Mission { fuel = 3 } }, Cmd.none )
+            ( { model | location = Location.Mission { fuel = 3, loot = Inventory.empty } }, Cmd.none )

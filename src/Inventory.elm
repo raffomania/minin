@@ -1,4 +1,4 @@
-module Inventory exposing (Inventory, decode, empty, encode, update, view)
+module Inventory exposing (Inventory, decode, empty, encode, merge, update, view)
 
 import Css exposing (center, displayFlex, flexWrap, justifyContent, wrap)
 import Dict exposing (Dict)
@@ -34,13 +34,28 @@ update resource count inv =
                 |> (\newDict -> Inventory { dict = newDict })
 
 
+merge : Inventory -> Inventory -> Inventory
+merge a b =
+    case ( a, b ) of
+        ( Inventory dictA, Inventory dictB ) ->
+            let
+                updated =
+                    Dict.merge Dict.insert
+                        (\k valA valB dict -> Dict.insert k (valA + valB) dict)
+                        Dict.insert
+                        dictA.dict
+                        dictB.dict
+                        Dict.empty
+            in
+            Inventory { dict = updated }
+
+
 view : Inventory -> Html Msg
 view inv =
     case inv of
         Inventory { dict } ->
             div []
-                [ text "Your inventory:"
-                , div
+                [ div
                     [ css [ displayFlex, flexWrap wrap, justifyContent center ]
                     ]
                     (Dict.toList dict |> List.map (\( res, count ) -> GridCell.view (Just res) (Just count) (Just ("/resources/" ++ res ++ ".png"))))
