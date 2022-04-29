@@ -11,6 +11,7 @@ import Resource
 type alias MissionStatus =
     { fuel : Int
     , loot : Inventory
+    , depth : Int
     }
 
 
@@ -19,7 +20,7 @@ drill status =
     if status.fuel > 0 then
         let
             cmd =
-                Random.generate (\res -> Msg.UpdateResource res 1) Resource.random
+                Random.generate (\res -> Msg.UpdateResource res 1) (Resource.random status.depth)
         in
         ( { status | fuel = status.fuel - 1 }, cmd )
 
@@ -35,8 +36,12 @@ viewMission status =
         [ Html.text <|
             "you have "
                 ++ String.fromInt status.fuel
-                ++ " fuel"
+                ++ " fuel."
         ]
+    , Html.p []
+        [ Html.text <| "You are " ++ String.fromInt (status.depth * 50) ++ " meters deep." ]
     , Html.button [ Events.onClick Msg.Drill ]
         [ Html.text "Drill" ]
+    , Html.button [ Events.onClick Msg.GoDeeper ]
+        [ Html.text "Dig Deeper" ]
     ]

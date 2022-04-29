@@ -1,4 +1,4 @@
-module Resource exposing (Resource(..), random, toString)
+module Resource exposing (Resource(..), random, toString, weight)
 
 import Array
 import Random
@@ -52,7 +52,53 @@ toString res =
             "Algae"
 
 
-random : Random.Generator Resource
-random =
-    Random.int 0 (Array.length allResourceTypes)
-        |> Random.map (\n -> Array.get n allResourceTypes |> Maybe.withDefault Iron)
+weight : Resource -> Int -> Float
+weight res depth =
+    let
+        fDepth =
+            toFloat depth / 10
+
+        base =
+            case res of
+                Iron ->
+                    0.7
+
+                Water ->
+                    0.8
+
+                Rock ->
+                    1.0
+
+                Gems ->
+                    0.2
+
+                Nanobots ->
+                    0.1
+
+                Fuel ->
+                    0.2
+
+                Algae ->
+                    0.1
+    in
+    -- more depth = more weight to lower base weights and less weight to higher base weights
+    fDepth
+        + base
+        + (2 * fDepth * base)
+        |> max 0
+
+
+random : Int -> Random.Generator Resource
+random depth =
+    allResourceTypes
+        |> Array.map (\t -> ( weight t depth, t ))
+        |> Array.toList
+        |> (\list ->
+                case list of
+                    head :: tail ->
+                        Random.weighted head tail
+
+                    _ ->
+                        -- something's broken
+                        Random.constant Rock
+           )

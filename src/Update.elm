@@ -36,6 +36,18 @@ update msg model =
                 Location.Base ->
                     ( model, Cmd.none )
 
+        GoDeeper ->
+            case model.location of
+                Location.Mission status ->
+                    let
+                        newStatus =
+                            { status | fuel = status.fuel - 1, depth = status.depth + 1 }
+                    in
+                    ( { model | location = Location.Mission newStatus }, Cmd.none )
+
+                Location.Base ->
+                    ( model, Cmd.none )
+
         UpdateResource res count ->
             case model.location of
                 Location.Mission status ->
@@ -53,4 +65,4 @@ update msg model =
                     ( model, Cmd.none )
 
         StartMission ->
-            ( { model | location = Location.Mission { fuel = 6, loot = Inventory.empty } }, Cmd.none )
+            ( { model | location = Location.Mission { fuel = 3, loot = Inventory.empty, depth = 0 } }, Cmd.none )
