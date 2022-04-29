@@ -3,7 +3,7 @@ module Inventory exposing (Inventory, decode, empty, encode, merge, update, view
 import Css exposing (center, displayFlex, flexWrap, justifyContent, wrap)
 import Dict exposing (Dict)
 import GridCell
-import Html.Styled exposing (Html, div, text)
+import Html.Styled exposing (Html, div)
 import Html.Styled.Attributes exposing (css)
 import Json.Decode
 import Json.Encode
