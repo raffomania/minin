@@ -1,6 +1,7 @@
 module Mission exposing (..)
 
 import Html.Styled as Html exposing (text)
+import Html.Styled.Attributes exposing (disabled)
 import Html.Styled.Events as Events
 import Inventory exposing (Inventory)
 import Msg
@@ -40,8 +41,10 @@ viewMission status =
         ]
     , Html.p []
         [ Html.text <| "You are " ++ String.fromInt (status.depth * 50) ++ " meters deep." ]
-    , Html.button [ Events.onClick Msg.Drill ]
+    , Html.button [ Events.onClick Msg.Drill, disabled (status.fuel <= 0) ]
         [ Html.text "Drill" ]
-    , Html.button [ Events.onClick Msg.GoDeeper ]
+    , Html.button [ Events.onClick Msg.GoDeeper, disabled (status.fuel <= 0) ]
         [ Html.text "Dig Deeper" ]
+    , Html.button [ Events.onClick Msg.ReturnToBase ]
+        [ Html.text "Return to Ship" ]
     ]

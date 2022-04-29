@@ -16,22 +16,8 @@ update msg model =
                     let
                         ( newStatus, cmd ) =
                             Mission.drill status
-
-                        newLocation =
-                            if newStatus.fuel > 0 then
-                                Location.Mission newStatus
-
-                            else
-                                Location.Base
-
-                        updatedInventory =
-                            if newLocation == Location.Base then
-                                model.inventory |> Inventory.merge status.loot
-
-                            else
-                                model.inventory
                     in
-                    ( { model | location = newLocation, inventory = updatedInventory }, cmd )
+                    ( { model | location = Location.Mission newStatus }, cmd )
 
                 Location.Base ->
                     ( model, Cmd.none )
@@ -39,11 +25,15 @@ update msg model =
         GoDeeper ->
             case model.location of
                 Location.Mission status ->
-                    let
-                        newStatus =
-                            { status | fuel = status.fuel - 1, depth = status.depth + 1 }
-                    in
-                    ( { model | location = Location.Mission newStatus }, Cmd.none )
+                    if status.fuel > 0 then
+                        let
+                            newStatus =
+                                { status | fuel = status.fuel - 1, depth = status.depth + 1 }
+                        in
+                        ( { model | location = Location.Mission newStatus }, Cmd.none )
+
+                    else
+                        ( model, Cmd.none )
 
                 Location.Base ->
                     ( model, Cmd.none )
@@ -60,6 +50,18 @@ update msg model =
                             { model | location = Location.Mission { status | loot = updatedInventory } }
                     in
                     ( updatedModel, Model.store updatedModel )
+
+                Location.Base ->
+                    ( model, Cmd.none )
+
+        ReturnToBase ->
+            case model.location of
+                Location.Mission status ->
+                    let
+                        newInventory =
+                            Inventory.merge model.inventory status.loot
+                    in
+                    ( { model | location = Location.Base, inventory = newInventory }, Cmd.none )
 
                 Location.Base ->
                     ( model, Cmd.none )

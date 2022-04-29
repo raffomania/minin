@@ -7,4 +7,5 @@ type Msg
     = Drill
     | GoDeeper
     | UpdateResource Resource Int
+    | ReturnToBase
     | StartMission
