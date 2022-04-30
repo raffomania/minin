@@ -56,7 +56,7 @@ weight : Resource -> Int -> Float
 weight res depth =
     let
         fDepth =
-            toFloat depth / 10
+            toFloat depth / 100
 
         base =
             case res of

@@ -1,4 +1,4 @@
-module Inventory exposing (Inventory, decode, empty, encode, merge, update, view)
+module Inventory exposing (Inventory, decode, empty, encode, isEmpty, merge, update, view)
 
 import Css exposing (center, displayFlex, flexWrap, justifyContent, wrap)
 import Dict exposing (Dict)
@@ -18,6 +18,13 @@ type Inventory
 empty : Inventory
 empty =
     Inventory { dict = Dict.empty }
+
+
+isEmpty : Inventory -> Bool
+isEmpty inv =
+    case inv of
+        Inventory { dict } ->
+            Dict.isEmpty dict
 
 
 update : Resource.Resource -> Int -> Inventory -> Inventory

@@ -39,32 +39,29 @@ update msg model =
                     ( model, Cmd.none )
 
         UpdateResource res count ->
-            case model.location of
-                Location.Mission status ->
-                    let
-                        updatedInventory =
-                            status.loot
-                                |> Inventory.update res count
+            let
+                updatedInventory =
+                    model.droneInventory
+                        |> Inventory.update res count
 
-                        updatedModel =
-                            { model | location = Location.Mission { status | loot = updatedInventory } }
-                    in
-                    ( updatedModel, Model.store updatedModel )
-
-                Location.Base ->
-                    ( model, Cmd.none )
+                updatedModel =
+                    { model | droneInventory = updatedInventory }
+            in
+            ( updatedModel, Cmd.none )
 
         ReturnToBase ->
-            case model.location of
-                Location.Mission status ->
-                    let
-                        newInventory =
-                            Inventory.merge model.inventory status.loot
-                    in
-                    ( { model | location = Location.Base, inventory = newInventory }, Cmd.none )
+            let
+                updatedModel =
+                    { model | location = Location.Base }
+            in
+            ( updatedModel, Cmd.none )
 
-                Location.Base ->
-                    ( model, Cmd.none )
+        ResourcesToBase ->
+            let
+                updatedModel =
+                    { model | inventory = Inventory.merge model.inventory model.droneInventory, droneInventory = Inventory.empty }
+            in
+            ( updatedModel, Model.store updatedModel )
 
         StartMission ->
-            ( { model | location = Location.Mission { fuel = 3, loot = Inventory.empty, depth = 0 } }, Cmd.none )
+            ( { model | location = Location.Mission { fuel = 9, depth = 0 } }, Cmd.none )

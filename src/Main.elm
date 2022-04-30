@@ -25,8 +25,9 @@ init savegame =
     let
         decoded =
             Model.decode savegame
+                |> Result.withDefault { inventory = Inventory.empty, location = Location.Base, droneInventory = Inventory.empty }
     in
-    ( decoded |> Result.withDefault { inventory = Inventory.empty, location = Location.Base }
+    ( decoded
     , Cmd.none
     )
 

@@ -8,4 +8,5 @@ type Msg
     | GoDeeper
     | UpdateResource Resource Int
     | ReturnToBase
+    | ResourcesToBase
     | StartMission

@@ -39,17 +39,25 @@ body model =
                 , zIndex (int 1)
                 ]
             ]
-            [ p [] [ text "hi" ]
+            [ p [] [ text "Hi" ]
+            , p [] [ text "Base ship" ]
             , p []
                 (case model.location of
                     Location.Mission status ->
-                        Mission.viewMission status
+                        [ p [] [ text "Resources mined on this mission:" ]
+                        , Inventory.view model.droneInventory
+                        , Mission.viewMission status
+                        ]
 
                     Location.Base ->
-                        [ p [] [ Inventory.view model.inventory ]
+                        [ Inventory.view model.inventory
+                        , p [] [ text "Mining drone" ]
+                        , Inventory.view model.droneInventory
                         , button [ Events.onClick Msg.StartMission ]
                             [ text "Start mission "
                             ]
+                        , button [ Events.onClick Msg.ResourcesToBase, Html.Styled.Attributes.disabled (Inventory.isEmpty model.droneInventory) ]
+                            [ text "Move resources to base ship" ]
                         ]
                 )
             ]
