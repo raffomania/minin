@@ -65,7 +65,7 @@ view inv =
                 [ div
                     [ css [ displayFlex, flexWrap wrap, justifyContent center ]
                     ]
-                    (Dict.toList dict |> List.map (\( res, count ) -> GridCell.view (Just res) (Just count) (Just ("/resources/" ++ res ++ ".png"))))
+                    (Dict.toList dict |> List.map (\( res, count ) -> GridCell.view (Just res) (Just count) (Just ("resources/" ++ res ++ ".png"))))
                 ]
 
 
